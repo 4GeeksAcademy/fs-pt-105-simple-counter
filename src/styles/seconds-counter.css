@@ -1,0 +1,9 @@
+.col{
+    background-color: black;
+    margin: 10px;
+    border-radius: 10px;
+}
+p{
+    color: white;
+    font-size: 10rem;
+}

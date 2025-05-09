@@ -1,18 +1,48 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
-//Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap"
-
-// index.css'
 import '../styles/index.css'
+import '../styles/seconds-counter.css';
+import { SecondsCounter } from './components/SecondsCounter.jsx'
+import { StopStartReset } from './components/StopStartReset.jsx'
 
-// components
-import Home from './components/Home';
+const root = ReactDOM.createRoot(document.getElementById('root'))
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Home/>
-  </React.StrictMode>,
-)
+let counter = 0;
+let idNumber;
+const start = () => {
+  if(!idNumber){
+    idNumber = setInterval(() => {
+      counter++;
+      render();
+    }, 1000);
+  };
+};
+
+const stop = () =>{
+  clearInterval(idNumber);
+  idNumber = null;
+};
+
+const reset = () => {
+  stop();
+  counter = 0;
+  render();
+}
+
+
+const render = () => {
+  root.render(
+    <>
+      <SecondsCounter seconds={counter} />
+      <StopStartReset 
+        onStart = {start}
+        onStop = {stop}
+        onReset = {reset}
+      />
+    </>
+  );
+};
+start();
+
